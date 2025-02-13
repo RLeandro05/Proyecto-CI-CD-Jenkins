@@ -1,0 +1,68 @@
+<div class="container">
+
+  <h4>Nuevo detalle</h4>
+
+  <form class="form-horizontal" #facturaForm="ngForm" (ngSubmit)="onSubmit(facturaForm.value)">
+
+    <!-- Campo Cantidad -->
+    <div class="input-group mb-3">
+      <label for="cantidad"><span class="input-group-text">Cantidad</span></label>
+      <input type="number" class="form-control" required [(ngModel)]="detalle.cantidad" name="cantidad"
+        #cantidad="ngModel">
+
+    </div>
+
+    <div [hidden]="cantidad.valid || cantidad.pristine" class="alert alert-danger">
+      La cantidad es obligatoria.
+    </div>
+    <!-- FIN Campo Cantidad -->
+
+    <!-- Campo Concepto -->
+    <div class="input-group mb-3">
+      <label for="contepto"><span class="input-group-text">Concepto</span></label>
+      <input type="text" class="form-control" required [(ngModel)]="detalle.concepto" name="concepto"
+        #concepto="ngModel">
+
+    </div>
+
+    <div [hidden]="concepto.valid || concepto.pristine" class="alert alert-danger">
+      El concepto es obligatorio.
+    </div>
+    <!-- FIN Campo Concepto -->
+
+    <!-- Campo Precio -->
+    <div class="input-group mb-3">
+      <label for="precio"><span class="input-group-text">Precio €</span></label>
+      <input type="number" class="form-control" required [(ngModel)]="detalle.precio" name="precio"
+        #precio="ngModel">
+
+    </div>
+
+    <div [hidden]="precio.valid || precio.pristine" class="alert alert-danger">
+      El precio es obligatorio.
+    </div>
+    <!-- FIN Campo Precio -->
+
+    <!-- Campo Tipo Iva -->
+    <div class="input-group mb-3">
+      <label for="tipo_iva"><span class="input-group-text">Tipo IVA %</span></label>
+      <input type="number" class="form-control" required [(ngModel)]="detalle.tipo_iva" name="tipo_iva" 
+        #tipo_iva="ngModel">
+
+    </div>
+
+    <div [hidden]="tipo_iva.valid || tipo_iva.pristine" class="alert alert-danger">
+      El Tipo de IVA es obligatorio.
+    </div>
+    <!-- FIN Campo Tipo Iva -->
+
+    <!-- Botones de envío y reset -->
+    <button type="submit" class="btn btn-success" [disabled]="!facturaForm.valid">{{textoBoton}}</button> &nbsp;
+    <button type="reset" class="btn btn-danger">Limpiar</button>
+
+  </form>
+  <br>
+
+  <button type="button" class="btn btn-primary d-flex justify-content mt-3" routerLink="/">Volver</button>
+
+</div>

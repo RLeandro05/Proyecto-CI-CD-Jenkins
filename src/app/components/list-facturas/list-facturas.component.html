@@ -1,0 +1,96 @@
+
+<div class="container">
+  
+  <div>
+
+    <h4 class="mt-4">Consulta de facturas:</h4>
+
+    <select (change)="listarDetalles($event)" class="form-control">
+
+      <option value="-1">Selecciona Una factura para consultar su detalle</option>
+
+      <option *ngFor="let factura of listaFac" value="{{factura.id}}" class="form-select">
+        Factura: {{factura.numero}} Fecha: {{factura.fecha}}
+      </option>
+
+    </select>
+
+  </div>
+
+  <div *ngIf="facturaSel == -1">
+    <p class="alert alert-info mt-4">Seleccione una factura.</p>
+  </div>
+
+  <div *ngIf="facturaSel !== -1" class="mt-3">
+
+    <p>Detalle de la factura:</p>
+
+    <div>
+      <button type="button" class="btn btn-outline-primary" [routerLink]="['formFactura', -1, facturaSel]">Nuevo Detalle</button>
+    </div>
+
+    <div class="table-responsive mt-4">
+
+      <p class="alert alert-info" *ngIf="listaDetall.length == 0">
+        No hay detalles de la factura seleccionada.
+      </p>
+
+      <table *ngIf="listaDetall.length > 0" class="table table-bordered border border-5 border-primary-subtle table-hover">
+
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Cantidad</th>
+            <th>Concepto</th>
+            <th>Precio</th>
+            <th>Tipo IVA</th>
+            <th>IVA</th>
+            <th>TOTAL</th>
+            <th>Modificar</th>
+            <th>Borrar</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let detalle of listaDetall">
+
+            <td>{{detalle.id}}</td>
+            <td>{{detalle.cantidad}}</td>
+            <td>{{detalle.concepto}}</td>
+            <td>{{detalle.precio}} €</td>
+            <td>{{detalle.tipo_iva}}</td>
+
+            <!--Cálculo del IVA-->
+            <td>{{calIva(detalle.precio, detalle.cantidad, detalle.tipo_iva).toFixed(2)}} €</td>
+
+            <!--Cálculo del total independiente-->
+            <td>{{calTotalIva(detalle.precio, detalle.cantidad, detalle.tipo_iva).toFixed(2)}} €</td>
+
+            <!--Botones de modificar y borrar "-->
+            <td>
+              <button type="button" class="btn btn-warning" [routerLink]="['formFactura', detalle.id, facturaSel]" >Editar</button>
+            </td>
+
+            <td>
+              <button type="button" class="btn btn-dark" (click)="borrar(detalle)">Borrar</button>
+            </td>
+
+          </tr>
+
+          <tr>
+            <td colspan="5">TOTALES: </td>
+            <td>{{calSumIva().toFixed(2)}} €</td>
+            <td>{{calSumTotalIva().toFixed(2)}} €</td>
+            <td colspan="2"></td>
+          </tr>
+
+        </tbody>
+  
+      </table>
+
+    </div>
+    
+
+  </div>
+
+</div>
