@@ -10,7 +10,7 @@ import { DetalleFactura } from '../models/detalle-factura';
 })
 export class PAjaxService {
 
-  private url: string = "http://localhost:9090/DWC/Angular/Backends/fa/servidor.php";
+  private url: string = "http://localhost/DAW_M/Cursos/DWC/Angular/Backends/fa/servidor.php";
 
   constructor(private httpClient: HttpClient) { }
 
