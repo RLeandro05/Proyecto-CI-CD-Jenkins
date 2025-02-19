@@ -12,7 +12,7 @@ describe('ListFacturasComponent - Funciones de Cálculo', () => {
   beforeEach(async () => {
     const mockPAjaxService = jasmine.createSpyObj('PAjaxService', ['facturas', 'listadoDetalle', 'borra']);
   
-    // Asegurar que los métodos devuelvan observables
+    // Aseguramos que los métodos devuelvan observables
     mockPAjaxService.facturas.and.returnValue(of([]));
     mockPAjaxService.listadoDetalle.and.returnValue(of([]));
     mockPAjaxService.borra.and.returnValue(of([]));
