@@ -4,7 +4,6 @@ import { DetalleFactura } from '../../models/detalle-factura';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { PAjaxService } from '../../services/p-ajax.service';
 import { of } from 'rxjs';
-import { By } from '@angular/platform-browser';
 
 describe('ListFacturasComponent - Funciones de Cálculo', () => {
   let component: ListFacturasComponent;
@@ -42,12 +41,14 @@ describe('ListFacturasComponent - Funciones de Cálculo', () => {
     //Verificamos que el servicio de borrado fue llamado con el detalle correcto
     expect(mockPAjaxService.borra).toHaveBeenCalledWith(detalle1);
 
+    const listaEsperada = [detalle2, detalle3]
     //Simulamos que el servicio devuelve una nueva lista sin el detalle borrado
-    mockPAjaxService.borra.and.returnValue(of([]));
+    mockPAjaxService.borra.and.returnValue(of(listaEsperada));
 
     fixture.detectChanges();
 
     //Verificamos que el detalle ya no esté en la lista
-    expect(component.listaDetall.length).toBe(0);
+    expect(component.listaDetall.length).toBe(2);
+    expect(component.listaDetall).toEqual(listaEsperada);
   });
 });
