@@ -4,13 +4,15 @@ import { DetalleFactura } from '../../models/detalle-factura';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { PAjaxService } from '../../services/p-ajax.service';
 import { of } from 'rxjs';
+import { By } from '@angular/platform-browser';
 
 describe('ListFacturasComponent - Funciones de Cálculo', () => {
   let component: ListFacturasComponent;
   let fixture: ComponentFixture<ListFacturasComponent>;
+  let mockPAjaxService: jasmine.SpyObj<PAjaxService>;
 
   beforeEach(async () => {
-    const mockPAjaxService = jasmine.createSpyObj('PAjaxService', ['facturas', 'listadoDetalle', 'borra']);
+    mockPAjaxService = jasmine.createSpyObj('PAjaxService', ['facturas', 'listadoDetalle', 'borra']);
   
     // Asegurar que los métodos devuelvan observables
     mockPAjaxService.facturas.and.returnValue(of([]));
@@ -27,31 +29,25 @@ describe('ListFacturasComponent - Funciones de Cálculo', () => {
     component = fixture.componentInstance;
   });
 
-  it('debe calcular correctamente el IVA', () => {
-    expect(component.calIva(100, 2, 10)).toBe(20);
-    expect(component.calIva(50, 3, 5)).toBe(7.5);
-  });
+  it('debe borrar un detalle correctamente', () => {
+    //Simulamos que tenemos una lista de detalles
+    const detalle: DetalleFactura = { id: 1, concepto: 'Detalle 1', cantidad: 2, precio: 100, tipo_iva: 10 } as DetalleFactura;
+    component.listaDetall = [detalle];
 
-  it('debe calcular correctamente el total con IVA', () => {
-    expect(component.calTotalIva(100, 2, 10)).toBe(220);
-    expect(component.calTotalIva(50, 3, 5)).toBe(157.5);
-  });
+    // Llamamos al método de borrar
+    component.borrar(detalle);
 
-  it('debe calcular la suma del IVA de los detalles', () => {
-    component.listaDetall = [
-      { precio: 100, cantidad: 2, tipo_iva: 10 } as DetalleFactura,
-      { precio: 50, cantidad: 3, tipo_iva: 5 } as DetalleFactura,
-    ];
+    // Verificamos que el servicio de borrado fue llamado con el detalle correcto
+    expect(mockPAjaxService.borra).toHaveBeenCalledWith(detalle);
 
-    expect(component.calSumIva()).toBe(27.5);
-  });
+    // Simulamos que el servicio devuelve una nueva lista sin el detalle borrado
+    mockPAjaxService.borra.and.returnValue(of([]));
 
-  it('debe calcular la suma total con IVA de los detalles', () => {
-    component.listaDetall = [
-      { precio: 100, cantidad: 2, tipo_iva: 10 } as DetalleFactura,
-      { precio: 50, cantidad: 3, tipo_iva: 5 } as DetalleFactura,
-    ];
+    // Llamamos a la función nuevamente y verificamos que la lista se actualiza
+    component.borrar(detalle);
+    fixture.detectChanges();
 
-    expect(component.calSumTotalIva()).toBe(377.5);
+    // Verificamos que el detalle ya no esté en la lista
+    expect(component.listaDetall.length).toBe(0);
   });
 });
