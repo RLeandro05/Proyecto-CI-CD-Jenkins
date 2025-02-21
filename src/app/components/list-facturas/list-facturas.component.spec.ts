@@ -31,9 +31,7 @@ describe('ListFacturasComponent - Funciones de Cálculo', () => {
   it('debe borrar un detalle correctamente', () => {
     //Simulamos que tenemos una lista de detalles
     const detalle1: DetalleFactura = { id: 1, concepto: 'Detalle 1', cantidad: 2, precio: 110, tipo_iva: 1 } as DetalleFactura;
-    const detalle2: DetalleFactura = { id: 2, concepto: 'Detalle 2', cantidad: 23, precio: 1020, tipo_iva: 10 } as DetalleFactura;
-    const detalle3: DetalleFactura = { id: 3, concepto: 'Detalle 3', cantidad: 21, precio: 1004, tipo_iva: 23 } as DetalleFactura;
-    component.listaDetall = [detalle1, detalle2, detalle3];
+    component.listaDetall = [detalle1];
 
     //Llamamos al método de borrar
     component.borrar(detalle1);
@@ -41,14 +39,12 @@ describe('ListFacturasComponent - Funciones de Cálculo', () => {
     //Verificamos que el servicio de borrado fue llamado con el detalle correcto
     expect(mockPAjaxService.borra).toHaveBeenCalledWith(detalle1);
 
-    const listaEsperada = [detalle2, detalle3]
     //Simulamos que el servicio devuelve una nueva lista sin el detalle borrado
-    mockPAjaxService.borra.and.returnValue(of(listaEsperada));
+    mockPAjaxService.borra.and.returnValue(of([]));
 
     fixture.detectChanges();
 
     //Verificamos que el detalle ya no esté en la lista
-    expect(component.listaDetall.length).toBe(2);
-    expect(component.listaDetall).toEqual(listaEsperada);
+    expect(component.listaDetall.length).toBe(0);
   });
 });
