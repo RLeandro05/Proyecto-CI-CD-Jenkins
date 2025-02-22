@@ -26,7 +26,6 @@
     <p>Detalle de la factura:</p>
 
     <div>
-      <button type="button" class="btn btn-outline-primary" [routerLink]="['formFactura', -1, facturaSel]">Nuevo Detalle</button>
       <button type="button" class="btn btn-outline-primary" (click)="irFormFactura(-1)">Nuevo Detalle</button>
     </div>
 
@@ -69,7 +68,6 @@
 
             <!--Botones de modificar y borrar "-->
             <td>
-              <button type="button" class="btn btn-warning" [routerLink]="['formFactura', detalle.id, facturaSel]" >Editar</button>
               <button type="button" class="btn btn-warning ms-2" (click)="irFormFactura(detalle.id)" >Editar</button>
             </td>
 
