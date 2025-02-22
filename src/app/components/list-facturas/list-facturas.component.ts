@@ -100,7 +100,7 @@ export class ListFacturasComponent {
 
   borrar(detalle: DetalleFactura) {
 
-    
+    if (confirm(`¿Está seguro de que desea borrar el detalle ${detalle.concepto}?` )) {
 
       this.peticion.borra(detalle).subscribe(
 
@@ -113,7 +113,7 @@ export class ListFacturasComponent {
   
       );
 
-    
+    }
     
 
   }
