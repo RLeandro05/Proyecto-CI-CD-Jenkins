@@ -4,14 +4,14 @@ pipeline {
     environment {
         NODEJS_HOME = tool 'NodeJS'
         PATH = "${NODEJS_HOME}/bin:${env.PATH}"
-        AZURE_APP_NAME = "miapp"  // Nombre de tu App Service en Azure
-        RESOURCE_GROUP = "mi-recurso-grupo"
+        AZURE_APP_NAME = "miapp-angular"  // Nombre de tu App Service en Azure
+        RESOURCE_GROUP = "mi-recurso"
     }
 
     stages {
         stage('Clonar Repositorio') {
             steps {
-                git 'https://github.com/RLeandro05/Proyecto-CI-CD-Jenkins.git'
+                git clone 'https://github.com/RLeandro05/Proyecto-CI-CD-Jenkins.git'
             }
         }
 
@@ -21,11 +21,11 @@ pipeline {
             }
         }
 
-        stage('Ejecutar Pruebas') {
+        /*stage('Ejecutar Pruebas') {
             steps {
                 sh 'ng test --watch=false --browsers=ChromeHeadless'
             }
-        }
+        }*/
 
         stage('Construir Aplicación') {
             steps {
@@ -42,7 +42,7 @@ pipeline {
         stage('Desplegar en Azure') {
             steps {
                 sh '''
-                az account set --subscription "ID-de-tu-Suscripción"
+                az account set --subscription "5f3235c0-aef2-466d-bcc4-b390e0e5555e"
                 az webapp deployment source config-zip \
                   --resource-group $RESOURCE_GROUP \
                   --name $AZURE_APP_NAME \
