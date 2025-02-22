@@ -1,7 +1,8 @@
 // Karma configuration
 // Generated on Mon Feb 17 2025 12:46:52 GMT+0100 (hora estándar de Europa central)
 
-module.exports = function(config) {
+module.exports = function (config) {
+  process.env.CHROME_BIN = require('puppeteer').executablePath();
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -55,7 +56,14 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://www.npmjs.com/search?q=keywords:karma-launcher
-    browsers: ['ChromeHeadless'],
+    browsers: ['ChromeHeadlessPuppeteer'],
+    customLaunchers: {
+      ChromeHeadlessPuppeteer: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox', '--disable-gpu']
+      }
+    },
+
 
 
     // Continuous Integration mode
