@@ -19,6 +19,7 @@ pipeline {
             steps {
                 sh 'npm install'
                 sh 'npm install -g @angular/cli'
+                sh 'npm install puppeteer --save-dev'
                
             }
         }
