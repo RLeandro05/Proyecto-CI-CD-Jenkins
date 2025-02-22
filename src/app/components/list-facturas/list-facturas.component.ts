@@ -34,14 +34,22 @@ export class ListFacturasComponent {
 
   }
 
-  listadoDetalle(idFactura: number): void {
-    this.peticion.listadoDetalle(idFactura).subscribe(
+  listarDetalles(event: any) {
+
+    console.log('Opcion Seleccionada :>> ', event.target.value);
+
+    this.peticion.listadoDetalle(event.target.value).subscribe(
+
       datos => {
+
         console.log('Listado Detalles :>> ', datos);
         this.listaDetall = datos;
-        this.facturaSel = idFactura;
+        this.facturaSel = parseInt(event.target.value);
+
       }
+
     );
+
   }
 
   calIva(precio: number, cantidad: number, tipoIva: number) {
