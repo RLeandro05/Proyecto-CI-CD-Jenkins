@@ -44,9 +44,12 @@ pipeline {
             }
         }
 
-        stage('Crear Archivo ZIP para Despliegue') {
+         stage('Crear Archivo ZIP para Despliegue') {
             steps {
-                sh 'cd dist/fa-prb && zip -r ../../build.zip .'
+                // Cambiar al directorio que contiene el index.html y crear el ZIP
+                dir('dist/fr-b2/browser') {
+                    sh 'zip -r ../../build.zip .'
+                }
             }
         }
 
