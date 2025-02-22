@@ -15,7 +15,7 @@ pipeline {
             }
         }
 
-        stage('Instalar Dependencias') {
+        /*stage('Instalar Dependencias') {
             steps {
                 //sh 'npm install'
                 sh pwd && ls
@@ -26,7 +26,7 @@ pipeline {
             steps {
                 sh 'ng test --watch=false --browsers=ChromeHeadless'
             }
-        }*/
+        }
 
         stage('Construir Aplicación') {
             steps {
@@ -60,5 +60,6 @@ pipeline {
         failure {
             echo 'Falló el pipeline ❌'
         }
+    }*/
     }
 }
