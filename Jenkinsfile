@@ -61,7 +61,7 @@ pipeline {
                }
            }
         }
-    
+    }
     post {
         success {
             echo 'Despliegue exitoso en Azure 🚀'
@@ -70,5 +70,5 @@ pipeline {
             echo 'Falló el pipeline ❌'
         }
     }
-    }
 }
+
