@@ -15,7 +15,7 @@ pipeline {
             }
         }
 
-        /*stage('Instalar Dependencias') {
+        stage('Instalar Dependencias') {
             steps {
                 //sh 'npm install'
                 sh pwd && ls
