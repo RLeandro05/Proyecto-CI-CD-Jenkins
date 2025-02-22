@@ -22,13 +22,13 @@ pipeline {
             }
         }
 
-        /*stage('Ejecutar Pruebas') {
+        stage('Ejecutar Pruebas') {
             steps {
                 sh 'ng test --watch=false --browsers=ChromeHeadless'
             }
         }
 
-        stage('Construir Aplicación') {
+        /*stage('Construir Aplicación') {
             steps {
                 sh 'ng build --configuration=production'
             }
