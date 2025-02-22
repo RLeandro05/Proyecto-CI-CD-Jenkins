@@ -45,15 +45,20 @@ pipeline {
         }
 
         stage('Desplegar en Azure') {
-            steps {
-                sh '''
-                az account set --subscription "5f3235c0-aef2-466d-bcc4-b390e0e5555e"
-                az webapp deployment source config-zip \
-                  --resource-group $RESOURCE_GROUP \
-                  --name $AZURE_APP_NAME \
-                  --src build.zip
-                '''
-            }
+    steps {
+        withCredentials([string(credentialsId: 'AZURE_CREDENTIALS', variable: 'AZURE_PASSWORD')]) {
+            sh '''
+            az login --service-principal -u "66b37867-bc76-4458-ae29-f44b19779846" \
+                     -p "$AZURE_PASSWORD" --tenant "e7bdc976-7a05-4f0b-8634-982a206ae3d3"
+
+            az account set --subscription "5f3235c0-aef2-466d-bcc4-b390e0e5555e"
+
+            az webapp deployment source config-zip \
+              --resource-group $RESOURCE_GROUP \
+              --name $AZURE_APP_NAME \
+              --src build.zip
+            '''
+        }
         }
     }
 
