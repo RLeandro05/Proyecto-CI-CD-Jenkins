@@ -21,6 +21,12 @@ pipeline {
                
             }
         }
+        stage('Instalar Dependencias') {
+            steps {
+                sh 'npm install -g @angular/cli'
+               
+            }
+        }
 
         stage('Ejecutar Pruebas') {
             steps {
