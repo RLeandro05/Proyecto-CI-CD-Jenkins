@@ -18,12 +18,13 @@ pipeline {
         stage('Instalar Dependencias') {
             steps {
                 sh 'npm install'
-                 sh '''
+                /*sh '''
                 npm cache clean --force
                 npm uninstall -g @angular/cli || true
                 rm -rf /var/jenkins_home/tools/jenkins.plugins.nodejs.tools.NodeJSInstallation/NodeJS/lib/node_modules/@angular
                 npm install -g @angular/cli
-                '''
+                '''*/
+                sh 'npm install -g @angular/cli'
                 sh 'npm install puppeteer --save-dev'
                
             }
