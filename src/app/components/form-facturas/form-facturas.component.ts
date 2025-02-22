@@ -20,7 +20,7 @@ export class FormFacturasComponent {
   public idFactura: number;
   //@Output() envIdFacturaEvent = new EventEmitter<number>();
 
-  constructor(private peticion: PAjaxService, private ruta: Router, private activatedRoute: ActivatedRoute) { 
+  constructor(private peticion: PAjaxService, public ruta: Router, private activatedRoute: ActivatedRoute) { 
 
     this.idDetalle = this.activatedRoute.snapshot.params["idDetalle"];
     this.idFactura = this.activatedRoute.snapshot.params["idFactura"];
