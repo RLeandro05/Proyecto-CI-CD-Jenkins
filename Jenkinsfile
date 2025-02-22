@@ -11,13 +11,14 @@ pipeline {
     stages {
         stage('Clonar Repositorio') {
             steps {
-                git clone 'https://github.com/RLeandro05/Proyecto-CI-CD-Jenkins.git'
+                git branch: 'Fernando', url: 'https://github.com/RLeandro05/Proyecto-CI-CD-Jenkins.git'
             }
         }
 
         stage('Instalar Dependencias') {
             steps {
-                sh 'npm install'
+                //sh 'npm install'
+                sh pwd && ls
             }
         }
 
