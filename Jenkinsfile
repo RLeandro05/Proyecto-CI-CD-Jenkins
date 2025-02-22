@@ -26,7 +26,7 @@ pipeline {
 
         stage('Ejecutar Pruebas') {
             steps {
-                sh 'ng test --watch=false --browsers=Chrome'
+                sh 'ng test --watch=false --browsers=ChromeHeadless'
                 //sh 'find / --name ng'
             }
         }
