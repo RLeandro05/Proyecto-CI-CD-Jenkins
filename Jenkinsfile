@@ -18,7 +18,7 @@ pipeline {
         stage('Instalar Dependencias') {
             steps {
                 //sh 'npm install'
-                sh pwd && ls
+                sh 'pwd && ls'
             }
         }
 
