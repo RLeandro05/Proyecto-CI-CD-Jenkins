@@ -31,7 +31,7 @@ pipeline {
             }
         }
 
-        /*stage('Construir Aplicación') {
+        stage('Construir Aplicación') {
             steps {
                 sh 'ng build --configuration=production'
             }
@@ -39,7 +39,7 @@ pipeline {
 
         stage('Crear Archivo ZIP para Despliegue') {
             steps {
-                sh 'cd dist/mi-proyecto-angular && zip -r ../../build.zip .'
+                sh 'cd dist/fa-prb && zip -r ../../build.zip .'
             }
         }
 
