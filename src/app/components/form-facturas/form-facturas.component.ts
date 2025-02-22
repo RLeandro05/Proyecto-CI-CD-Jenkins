@@ -27,33 +27,38 @@ export class FormFacturasComponent {
     
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+
     console.log('idDetalle :>> ', this.idDetalle);
     console.log('idFactura :>> ', this.idFactura);
-  
-    // Inicializamos las propiedades básicas
-    this.detalle = { id: this.idDetalle, id_factura: this.idFactura } as DetalleFactura;
-  
-    if (this.idDetalle === -1) {
-      this.textoBoton = 'Añadir';
+
+    this.detalle.id = this.idDetalle;
+    this.detalle.id_factura = this.idFactura;
+
+    if (this.detalle.id == -1) {
+      this.textoBoton = "Añadir";
     } else {
-      this.textoBoton = 'Modificar';
-  
-      // Llamamos al servicio para obtener el detalle existente
+
+      this.textoBoton = "Modificar";
+      
       this.peticion.selDetalleID(this.idDetalle).subscribe({
-        next: (res) => {
-          // Actualizamos el detalle solo si hay respuesta válida
-          if (res) {
-            this.detalle = res;
-          }
+
+        next: res => {
+
+          console.log('res SelDetalleID :>> ', res);
+          this.detalle = res;
+          //console.log('detalle selDetalleID :>> ', this.detalle);
+
         },
-        error: (error) => {
-          console.error('Error al cargar el detalle:', error);
-          // En caso de error, mantenemos los valores iniciales
-          this.detalle = { id: this.idDetalle, id_factura: this.idFactura } as DetalleFactura;
+
+        error: error => {
+          console.log('error :>> ', error);
         }
+
       });
+
     }
+
   }
 
   onSubmit(form: DetalleFactura) {
