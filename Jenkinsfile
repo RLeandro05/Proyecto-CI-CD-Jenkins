@@ -60,7 +60,7 @@ pipeline {
 //                    '''
 //                }
 //            }
-//        }
+    }
 
     post {
         success {
@@ -71,4 +71,4 @@ pipeline {
         }
     }
     }
-}
+
